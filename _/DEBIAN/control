@@ -1,0 +1,10 @@
+Package: com.fraksoft.sshot
+Name: sshot
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: frak
+Author: frak
+Section: Tweaks
+Version: 0.0.1-6
+Installed-Size: 16
