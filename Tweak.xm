@@ -21,6 +21,7 @@ extern "C" UIImage* _imageScaledToSize();
 	
 	%orig;
 	
+	//kick off periodic timer
 	[NSTimer scheduledTimerWithTimeInterval: 1 target: self selector:@selector(myTick:) userInfo: nil repeats:YES];
 	
 
@@ -35,19 +36,15 @@ extern "C" UIImage* _imageScaledToSize();
 	NSLog(@"****************************************** TICK **********************************");
 	NSLog(@"**********************************************************************************");
 
-	
+	//take screenshot
  	UIImage *screenshot = _UICreateScreenUIImage();	
    
-   // begin scale 
+	// begin scale 
 	CGSize newSize = CGSizeMake(30, 30);
 	UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
 	[screenshot drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
 	UIImage *newIcon = UIGraphicsGetImageFromCurrentImageContext();    
 	UIGraphicsEndImageContext();
-	
-	
-	
-	
 	// end scale
 	
 	//save initial screenshot
