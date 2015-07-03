@@ -4,6 +4,7 @@
 @end
 
 extern "C" UIImage* _UICreateScreenUIImage();
+extern "C" UIImage* _imageScaledToSize();
 
 
 
@@ -35,13 +36,27 @@ extern "C" UIImage* _UICreateScreenUIImage();
 
 	
  	UIImage *screenshot = _UICreateScreenUIImage();	
+   
+   // begin scale 
+    CGSize newSize = CGSizeMake(30, 30);
+	UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [screenshot drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newIcon = UIGraphicsGetImageFromCurrentImageContext();    
+    UIGraphicsEndImageContext();
+	// end scale
+	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
 	NSString *filePath = [NSString stringWithFormat:@"%@/sshot_tick.png", documentsDirectory];
-    NSData* theImageData = UIImagePNGRepresentation(screenshot ); 
+    NSData* theImageData = UIImagePNGRepresentation(screenshot); 
     [theImageData writeToFile:filePath atomically:YES];
 	
-	NSLog(@"finished writing tick image to :%@",filePath);
+	NSString *filePath2 = [NSString stringWithFormat:@"%@/sshot_tick_icon.png", documentsDirectory];
+    NSData* theImageData2 = UIImagePNGRepresentation(newIcon); 
+    [theImageData2 writeToFile:filePath2 atomically:YES];
+	
+	
+	NSLog(@"finished writing tick images to :%@",filePath);
 	
 	
 	
